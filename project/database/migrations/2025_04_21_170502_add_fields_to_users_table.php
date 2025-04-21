@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->id('product_id')->after('name');
+            $table->integer('product_id')->after('name');
             $table->foreign(['product_id'])
                 ->references(['id'])->on('products')
                 ->onDelete('no action')->onUpdate('no action');
