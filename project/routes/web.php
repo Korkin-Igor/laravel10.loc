@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\MainController as Controller;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [Controller::class, 'index']);
-Route::post('/product/{id?}', [Controller::class, 'addProduct'])
-    ->where('id', '[0-9]+')
-    ->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
+Route::get('/', function() {
+    return view('welcome');
+});
