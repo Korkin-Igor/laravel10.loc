@@ -14,20 +14,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+/*Route::get('/', function () {
+    return view('welcome');
+});*/
 
-Route::get('/', function () {
-    // если исследовать страницу, то там будет только мой html-код
-    return '<h1>Главная</h1>';
+Route::prefix('admin')->group(function () {
+
+    Route::get('/post/{id?}', function ($id = 0) { //необязательный аргумент
+        return "Post number $id";
+    })->where('id', '[0-9]+');
+
+    Route::get('/posts', function () {
+       return 'Posts';
+    });
+
+    Route::any('/{any}', function () {
+        return 'Admin page not found!';
+    })->where("any", ".*");
 });
 
-Route::get('/profile', function () {
-    // view сама генерирует <!doctype html>.......
-    return view('profile', ['user' => 'admin']);
-});
-
-Route::get('/product/{id}', function ($id) {
-    return "Товар №$id";
-})->where('id', '[0-9]+');
+Route::any('/{any}', function () {
+    // json ответ
+    return response()->json(['message' => 'Any page not found!']);
+})->where("any", ".*");
