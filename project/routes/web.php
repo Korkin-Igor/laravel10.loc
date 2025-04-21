@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,14 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
 Route::get('/', function () {
-    dump(app('view'));
-
-    //  кладём в кэш 'name' => 'Igor'
-
-    $cache = app()->make('cache');
-//    $cache->put('name', 'Igor');
-
-
-    return $cache->get('name');
+    // если исследовать страницу, то там будет только мой html-код
+    return '<h1>Главная</h1>';
 });
+
+Route::get('/profile', function () {
+    // view сама генерирует <!doctype html>.......
+    return view('profile', ['user' => 'admin']);
+});
+
+Route::get('/product/{id}', function ($id) {
+    return "Товар №$id";
+})->where('id', '[0-9]+');
