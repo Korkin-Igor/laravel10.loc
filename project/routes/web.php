@@ -14,5 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    dump(config('app.name'));
+    dump(config('database.connections.pgsql'));
+    // стираю в .env значение переменной DB_DATABASE
+    dump(config('database.connections.pgsql.database'));
+    // В целом тему я понял
 });
