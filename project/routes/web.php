@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\MainController as Controller;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,26 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
-
-Route::prefix('admin')->group(function () {
-
-    Route::get('/post/{id?}', function ($id = 0) { //необязательный аргумент
-        return "Post number $id";
-    })->where('id', '[0-9]+');
-
-    Route::get('/posts', function () {
-       return 'Posts';
-    });
-
-    Route::any('/{any}', function () {
-        return 'Admin page not found!';
-    })->where("any", ".*");
-});
-
-Route::any('/{any}', function () {
-    // json ответ
-    return response()->json(['message' => 'Any page not found!']);
-})->where("any", ".*");
+Route::get('/', [Controller::class, 'index']);
+Route::post('/product/{id?}', [Controller::class, 'addProduct'])
+    ->where('id', '[0-9]+')
+    ->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
