@@ -10,13 +10,29 @@ class MainController extends Controller
 
     public function index(Request $request)
     {
-        $users = DB::table('users')->get(['id', 'name', 'email']);
-        $productsWithPriceLower700 = DB::table('products')->get(['title'])
-            ->where('price', '<', 700);
-        $products = DB::table('products')->get(['title', 'price'])
-            ->sortBy('price');
-        $products = DB::table('products')
-            ->orderByDesc('id')
-            ->get(['title', 'price']);
+        $cities = DB::table('cities')->select('ID', 'Name')
+            ->where('Name', 'like', '%a%')->get();
+        $results = DB::table('users')
+            ->join('posts', 'users.id', '=', 'posts.user_id')
+            ->select('users.name', 'posts.title')
+            ->get();
+        $results = DB::table('orders')
+            ->select('customer_id', DB::raw('COUNT(*) as total_orders'))
+            ->groupBy('customer_id')
+            ->having('total_orders', '>', 5)
+            ->get();
+        DB::table('users')->insert([
+            'name' => 'John Doe',
+            'email' => 'john@example.com',
+            'password' => bcrypt('password123'),
+        ]);
+        DB::table('users')->insert([
+            'name' => 'John Doe',
+            'email' => 'john@example.com',
+            'password' => bcrypt('password123'),
+        ]);
+        DB::table('users')
+            ->where('id', 1)
+            ->delete();
     }
 }
