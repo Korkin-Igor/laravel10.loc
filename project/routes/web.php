@@ -18,4 +18,15 @@ use App\Http\Controllers\MainController;
 //    return view('welcome');
 //});
 
-Route::get('/', [MainController::class, 'index']);
+Route::post('/create', [MainController::class, 'index'])
+    ->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
+
+Route::post('/read', [MainController::class, 'read'])
+    ->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
+
+Route::post('/update', [MainController::class, 'update'])
+    ->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
+
+Route::post('/delete', [MainController::class, 'delete'])
+    ->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
+
