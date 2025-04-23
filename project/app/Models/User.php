@@ -14,4 +14,11 @@ class User extends Model
 
     // заполняемые поля
     protected $fillable = ['name', 'email', 'password', 'product_id'];
+
+    public function isAdmin()
+    {
+        if ($this->email == 'admin@admin.com') {
+            return true;
+        } return false;
+    }
 }
