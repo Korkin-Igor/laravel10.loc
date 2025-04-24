@@ -2,19 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
 {
-    public function create(Request $request)
+    public function create(StoreProductRequest $request)
     {
-        $validated = $request->validate([
-            'title' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string', 'max:1000'],
-            'price' => ['required', 'integer'],
-        ]);
-
         $product = new Product([
             'title' => $request->title,
             'description' => $request->description,
@@ -25,9 +20,9 @@ class MainController extends Controller
         return response()->json($product)->setStatusCode(201);
     }
 
-    public function get(Request $request)
+    public function getProduct(Request $request)
     {
-        $valiadated = $request->validate([
+        $validated = $request->validate([
             'id' => ['required', 'integer', 'exists:products,id'],
         ]);
 

@@ -18,9 +18,7 @@ use App\Http\Controllers\MainController;
 //    return view('welcome');
 //});
 
-Route::post('/product', [MainController::class, 'create'])
-    ->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class)
-    ->name('product.create');
-Route::post('/product', [MainController::class, 'get'])
-    ->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class)
-    ->name('product.get');
+Route::get('/product', [MainController::class, 'create'])
+    ->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
+Route::get('/product/get', [MainController::class, 'get'])
+    ->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
