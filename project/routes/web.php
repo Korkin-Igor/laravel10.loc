@@ -19,9 +19,5 @@ use App\Http\Controllers\MainController;
 //});
 
 Route::get('/', [MainController::class, 'index']);
-
-Route::get('/hasmany', [MainController::class, 'hasMany'])
-    ->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
-
-Route::get('/belongsto', [MainController::class, 'belongsTo'])
-    ->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
+Route::get('/latestuser', [MainController::class, 'latestUser']);
+Route::get('/oldestuser', [MainController::class, 'oldestUser']);
