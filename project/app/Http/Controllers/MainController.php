@@ -3,24 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Models\User;
+use Illuminate\Http\Request;
 
 class MainController extends Controller
 {
-    public function index(): string
+    public function create(Request $request)
     {
-        $product = new Product([
-            'id' => 7,
-            'title' => 'product7',
-            'description' => 'glorbo frutto greeno',
-            'price' => 500
+        $validated = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:1000'],
+            'price' => ['required', 'integer'],
         ]);
 
-        $user = User::find(1);
-        $user->product()->save($product);
+        $product = new Product([
+            'title' => $request->title,
+            'description' => $request->description,
+            'price' => $request->price
+        ]);
 
-        // ->associate($user) для переопределения значения FK
-        // ->dissociate($user) для обнуления FK
-        return 'Success';
+        $product->save();
+        return response()->json($product)->setStatusCode(201);
+    }
+
+    public function get(Request $request)
+    {
+        $valiadated = $request->validate([
+            'id' => ['required', 'integer', 'exists:products,id'],
+        ]);
+
+        $product = Product::query()->find($request->id);
+        return response()->json($product);
     }
 }
