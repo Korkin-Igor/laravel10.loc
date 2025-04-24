@@ -18,8 +18,10 @@ use App\Http\Controllers\MainController;
 //    return view('welcome');
 //});
 
-Route::get('/hasOne', [MainController::class, 'hasOne'])
+Route::get('/', [MainController::class, 'index']);
+
+Route::get('/hasmany', [MainController::class, 'hasMany'])
     ->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
 
-Route::get('/belongTo', [MainController::class, 'belongTo'])
+Route::get('/belongsto', [MainController::class, 'belongsTo'])
     ->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
