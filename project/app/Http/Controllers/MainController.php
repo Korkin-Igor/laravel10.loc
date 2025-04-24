@@ -7,15 +7,20 @@ use App\Models\User;
 
 class MainController extends Controller
 {
-    public function index(): void
+    public function index(): string
     {
-        $product = Product::query()->find(2);
-        $user = $product->user;
-        dump($user->toArray());
-    }
+        $product = new Product([
+            'id' => 7,
+            'title' => 'product7',
+            'description' => 'glorbo frutto greeno',
+            'price' => 500
+        ]);
 
-    public function latestUser()
-    {
-        return Product::query()->find(4)->latestUser;
+        $user = User::find(1);
+        $user->product()->save($product);
+
+        // ->associate($user) для переопределения значения FK
+        // ->dissociate($user) для обнуления FK
+        return 'Success';
     }
 }

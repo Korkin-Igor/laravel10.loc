@@ -19,5 +19,3 @@ use App\Http\Controllers\MainController;
 //});
 
 Route::get('/', [MainController::class, 'index']);
-Route::get('/latestuser', [MainController::class, 'latestUser']);
-Route::get('/oldestuser', [MainController::class, 'oldestUser']);

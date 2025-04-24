@@ -11,7 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Product extends Model
 {
     use HasFactory;
-
+    protected $fillable = ['id', 'title', 'description', 'price'];
+    public $timestamps = false;
     public function user(): BelongsToMany
     {
         // вернутся пары айдишников вида user.id и product.id
